@@ -13,21 +13,28 @@ import "./App.css";
 // import ItemFilter from './components/Afternoon_W1_D5/ItemFilter';
 
 //Homework_W1_D5
-import Calculator from "./components/Homework_W1_D5/Calculator";
-import RegistrationForm from "./components/Homework_W1_D5/RegistrationForm";
-import { CartProvider } from "./components/Homework_W1_D5/Shopping/components/CartContext";
-import { CartIcon } from './components/Homework_W1_D5/Shopping/components/CartIcon';
-import { CartDropdown } from './components/Homework_W1_D5/Shopping/components/CartDropdown';
-import { ProductGrid } from './components/Homework_W1_D5/Shopping/components/ProductGrid';
+// import Calculator from "./components/Homework_W1_D5/Calculator";
+// import RegistrationForm from "./components/Homework_W1_D5/RegistrationForm";
+// import { CartProvider } from "./components/Homework_W1_D5/Shopping/components/CartContext";
+// import { CartIcon } from './components/Homework_W1_D5/Shopping/components/CartIcon';
+// import { CartDropdown } from './components/Homework_W1_D5/Shopping/components/CartDropdown';
+// import { ProductGrid } from './components/Homework_W1_D5/Shopping/components/ProductGrid';
 
-const App: React.FC = () => {
-  const [isCartOpen, setIsCartOpen] = useState(false);
+//Afternoon_W2_D6
+import Customers from './components/Afternoon_W2_D6';
 
-  const toggleCart = () => {
-    setIsCartOpen((prev) => !prev);
-  }
+//Homework_W2_D6
+// import WeatherApp from './components/Homework_W2_D6';
 
-  return (
+//Shopping
+// const App: React.FC = () => {
+//   const [isCartOpen, setIsCartOpen] = useState(false);
+
+//   const toggleCart = () => {
+//     setIsCartOpen((prev) => !prev);
+//   }
+
+//   return (
     <div>
       {/* <section>
       <div>
@@ -72,7 +79,7 @@ const App: React.FC = () => {
       </div>
     </section> */}
 
-      <section>
+{/*       <section>
         <div
           style={{
             display: "flex-col",
@@ -106,8 +113,18 @@ const App: React.FC = () => {
           <h2 style={{ textAlign: 'left' }}>Thực phẩm khô</h2>
           <ProductGrid />
         </CartProvider>
-      </section>
+      </section> */}
+  //   </div>
+  // );
+  // };
+
+function App() {
+
+  return (
+    <div>
+      <Customers />
+{/*       <WeatherApp /> */}
     </div>
   );
-  };
+};
 export default App;
