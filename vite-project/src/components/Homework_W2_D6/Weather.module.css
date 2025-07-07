@@ -21,7 +21,7 @@
 .searchIcon {
   position: absolute;
   top: 50%;
-  right: 12px; /* Đặt icon cách bên phải 12px */
+  left: 12px;
   transform: translateY(-50%);
   color: #555;
 }
@@ -31,18 +31,19 @@
   padding: 0.6rem 0.6rem 0.6rem 2.2rem;
   border-radius: 1rem;
   border: none;
-  padding-right: 2.5rem;
   font-size: 1rem;
   background: rgba(255, 255, 255, 0.4);
 }
 
 .currentWeather {
   text-align: center;
+  color: #ffffff;
 }
 
 .temp {
   font-size: 4rem;
   font-weight: 600;
+  color: white;
 }
 
 .condition {
@@ -66,6 +67,7 @@
 .card {
   text-align: center;
   flex: 1;
+  color: #6B747F;
 }
 
 .forecast {
