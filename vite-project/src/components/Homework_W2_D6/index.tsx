@@ -108,7 +108,7 @@ export default function WeatherApp() {
             <div className={styles.details}>
               <div className={styles.card}>
                 <p>Humidity</p>
-                <strong>{weather.current.humidity}%</strong>
+                <strong style={{ color: "black" }}>{weather.current.humidity}%</strong>
               </div>
               <div
                 style={{
@@ -120,7 +120,7 @@ export default function WeatherApp() {
               {/* Đường kẻ dọc */}
               <div className={styles.card}>
                 <p>Wind</p>
-                <strong>{weather.current.wind_kph} km/h</strong>
+                <strong style={{ color: "black" }}>{weather.current.wind_kph} km/h</strong>
               </div>
             </div>
           </div>
