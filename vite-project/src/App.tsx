@@ -1,85 +1,72 @@
-// import { Route, BrowserRouter, Routes } from 'react-router';
-// import Header from './components/Afternoon_W2_D7/Components/Header';
-// import HomePage from './components/Afternoon_W2_D7/Pages/HomePage';
-// import BlogPage from './components/Afternoon_W2_D7/Pages/BlogPage';
-// import CategoryPage from './components/Afternoon_W2_D7/Pages/CategoryPage';
-// import ProductPage from './components/Afternoon_W2_D7/Pages/ProductPage';
-// import CustomerPage from './components/Afternoon_W2_D7/Pages/CustomerPage';
-// import LoginPage from './components/Afternoon_W2_D7/Pages/LoginPage';
+//Afternoon W2 D8
+// import LoginForm from "./components/Afternoon_W2_D8/Form_Login/LoginForm";
+// import AuthPage from "./components/Afternoon_W2_D8/Form-In-Up/Pages/AuthPage";
+// import RegisterForm from "./components/Afternoon_W2_D8/Form_Register/RegisterForm";
 
 // function App() {
 //   return (
-//     <BrowserRouter>
-//       <Header />
-//       <Routes>
-//         <Route path="/" element={<HomePage />} />
-//         <Route path="/blog" element={<BlogPage />} />
-//         <Route path="/category" element={<CategoryPage />} />
-//         <Route path="/product" element={<ProductPage />} />
-//         <Route path="/login" element={<LoginPage />} />
-//         <Route path="/customer" element={<CustomerPage />} />
-//       </Routes>
-//     </BrowserRouter>
+//     <div style={{ fontFamily: "Arial, sans-serif", backgroundColor: "#f9f9f9", minHeight: "100vh", padding: "40px" }}>
+      
+//       {/* Lab 1 Section */}
+//       <div className="mb-8">
+//         <h2 className="text-2xl font-semibold mb-4 text-center text-gray-700">Lab 1 - Auth Page</h2>
+//         <AuthPage />
+//       </div>
+
+//       {/* Lab 2 Section */}
+//       <div className="mb-8">
+//         <h2 className="text-2xl font-semibold mb-4 text-center text-gray-700">Lab 2 - Register Form</h2>
+//         <RegisterForm />
+//       </div>
+
+//       {/* Lab 3 Section */}
+//       <div className="mb-8">
+//         <h2 className="text-2xl font-semibold mb-4 text-center text-gray-700">Lab 3 - Đăng nhập hệ thống</h2>
+//         <div className="min-h-screen flex flex-col md:flex-row shadow-lg rounded-lg overflow-hidden">
+//           {/* Left: Image */}
+//           <div className="w-full md:w-1/2 h-64 md:h-auto relative">
+//             <img
+//               src="/images/lab3.PNG"
+//               alt="Login Illustration"
+//               className="w-full h-full object-cover"
+//             />
+//             {/* Text overlay ở phần trên cùng của ảnh */}
+//             <div className="absolute top-0 left-0 right-0 p-4 md:p-6">
+//               <div className="text-left">
+//                 <h1 className="text-xl md:text-3xl font-bold leading-tight text-gray-800">
+//                   Set Your Partner
+//                   <br />
+//                   Recruitment on <span className="text-blue-600">Auto-Pilot</span>
+//                 </h1>
+//               </div>
+//             </div>
+//           </div>
+
+//           {/* Right: Form */}
+//           <div className="w-full md:w-1/2 flex items-center justify-center bg-white px-4 py-8">
+//             <div className="max-w-sm w-full">
+//               {/* Wrap LoginForm để ẩn phần tiêu đề bị lệch */}
+//               <div className="[&>div:first-child]:hidden">
+//                 <LoginForm />
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
 //   );
 // }
 
 // export default App;
 
-import { Routes, Route, BrowserRouter } from "react-router";
-import Sidebar from "./components/Homework_W2_D7/Components/Sidebar";
-import PatientsPage from "./components/Homework_W2_D7/Pages/PatientsPage";
-import OverviewPage from "./components/Homework_W2_D7/Pages/OverviewPage";
-import MapPage from "./components/Homework_W2_D7/Pages/MapPage";
-import DepartmentsPage from "./components/Homework_W2_D7/Pages/DepartmentsPage";
-import HistoryPage from "./components/Homework_W2_D7/Pages/HistoryPage";
-import DoctorsPage from "./components/Homework_W2_D7/Pages/DoctorsPage";
-import SettingsPage from "./components/Homework_W2_D7/Pages/SettingsPage";
-import { FaBell, FaSearch } from "react-icons/fa";
+//App.tsx
+import Registration from "./components/Homework_W2_D8/RegistrationForm"
 
 function App() {
   return (
-    <BrowserRouter>
-      <div className="flex min-h-screen">
-        <Sidebar />
-        <div className="flex-1 flex flex-col">
-          <div className="flex items-center justify-between px-6 py-4 border-b bg-white">
-            <div className="flex items-center w-full max-w-md">
-              <div className="relative w-full">
-                <span className="absolute left-3 inset-y-0 flex items-center text-gray-400">
-                  <FaSearch className="text-sm" />
-                </span>
-
-                <input
-                  type="text"
-                  placeholder="Search..."
-                  className="w-full pl-10 pr-4 py-2 border rounded-lg bg-gray-100 text-sm outline-none focus:ring-2 focus:ring-blue-400"
-                />
-              </div>
-            </div>
-
-            <div className="flex items-center gap-4 ml-4">
-              <FaBell className="text-gray-500 text-lg cursor-pointer" />
-              <div className="w-8 h-8 rounded-full bg-gray-300"></div>
-              <span className="text-sm font-medium text-gray-700">
-                Emma Kwan
-              </span>
-            </div>
-          </div>
-
-          <div className="p-6 flex-1 bg-gray-50">
-            <Routes>
-              <Route path="/" element={<PatientsPage />} />
-              <Route path="/overview" element={<OverviewPage />} />
-              <Route path="/map" element={<MapPage />} />
-              <Route path="/departments" element={<DepartmentsPage />} />
-              <Route path="/doctors" element={<DoctorsPage />} />
-              <Route path="/history" element={<HistoryPage />} />
-              <Route path="/settings" element={<SettingsPage />} />
-            </Routes>
-          </div>
-        </div>
-      </div>
-    </BrowserRouter>
+   <div>
+      <Registration />
+   </div>
   );
 }
 
