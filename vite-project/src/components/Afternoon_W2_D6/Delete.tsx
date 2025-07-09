@@ -1,4 +1,4 @@
-import React from 'react';
+
 
 const url = 'https://server.aptech.io/online-shop/customers';
 
