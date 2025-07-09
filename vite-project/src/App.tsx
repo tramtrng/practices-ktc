@@ -1,113 +1,86 @@
-import React, { useState } from 'react';
-import "./App.css";
-//Afternoon_W1_D5
-// import ButtonClickCounter from './components/Afternoon_W1_D5/ButtonClickCounter';
-// import InputFieldTracker from './components/Afternoon_W1_D5/InputFieldTracker';
-// import ToggleSwitch from './components/Afternoon_W1_D5/ToggleSwitch';
-// import HoverHighlight from './components/Afternoon_W1_D5/HoverHighlight';
-// import HandlingFormSubmission from './components/Afternoon_W1_D5/HandlingFormSubmission';
-// import KeyPressDisplay from './components/Afternoon_W1_D5/KeyPressDisplay';
-// import DoubleClickMessage from './components/Afternoon_W1_D5/DoubleClickMessage';
-// import DropdownSelection from './components/Afternoon_W1_D5/DropdownSelection';
-// import CheckboxStatus from './components/Afternoon_W1_D5/CheckboxToggle';
-// import ItemFilter from './components/Afternoon_W1_D5/ItemFilter';
+// import { Route, BrowserRouter, Routes } from 'react-router';
+// import Header from './components/Afternoon_W2_D7/Components/Header';
+// import HomePage from './components/Afternoon_W2_D7/Pages/HomePage';
+// import BlogPage from './components/Afternoon_W2_D7/Pages/BlogPage';
+// import CategoryPage from './components/Afternoon_W2_D7/Pages/CategoryPage';
+// import ProductPage from './components/Afternoon_W2_D7/Pages/ProductPage';
+// import CustomerPage from './components/Afternoon_W2_D7/Pages/CustomerPage';
+// import LoginPage from './components/Afternoon_W2_D7/Pages/LoginPage';
 
-//Homework_W1_D5
-import Calculator from "./components/Homework_W1_D5/Calculator";
-import RegistrationForm from "./components/Homework_W1_D5/RegistrationForm";
-import { CartProvider } from "./components/Homework_W1_D5/Shopping/components/CartContext";
-import { CartIcon } from './components/Homework_W1_D5/Shopping/components/CartIcon';
-import { CartDropdown } from './components/Homework_W1_D5/Shopping/components/CartDropdown';
-import { ProductGrid } from './components/Homework_W1_D5/Shopping/components/ProductGrid';
+// function App() {
+//   return (
+//     <BrowserRouter>
+//       <Header />
+//       <Routes>
+//         <Route path="/" element={<HomePage />} />
+//         <Route path="/blog" element={<BlogPage />} />
+//         <Route path="/category" element={<CategoryPage />} />
+//         <Route path="/product" element={<ProductPage />} />
+//         <Route path="/login" element={<LoginPage />} />
+//         <Route path="/customer" element={<CustomerPage />} />
+//       </Routes>
+//     </BrowserRouter>
+//   );
+// }
 
-const App: React.FC = () => {
-  const [isCartOpen, setIsCartOpen] = useState(false);
+// export default App;
 
-  const toggleCart = () => {
-    setIsCartOpen((prev) => !prev);
-  }
+import { Routes, Route, BrowserRouter } from "react-router";
+import Sidebar from "./components/Homework_W2_D7/Components/Sidebar";
+import PatientsPage from "./components/Homework_W2_D7/Pages/PatientsPage";
+import OverviewPage from "./components/Homework_W2_D7/Pages/OverviewPage";
+import MapPage from "./components/Homework_W2_D7/Pages/MapPage";
+import DepartmentsPage from "./components/Homework_W2_D7/Pages/DepartmentsPage";
+import HistoryPage from "./components/Homework_W2_D7/Pages/HistoryPage";
+import DoctorsPage from "./components/Homework_W2_D7/Pages/DoctorsPage";
+import SettingsPage from "./components/Homework_W2_D7/Pages/SettingsPage";
+import { FaBell, FaSearch } from "react-icons/fa";
 
+function App() {
   return (
-    <div>
-      {/* <section>
-      <div>
-        <h2>Exercise 1: Button Click Counter</h2>
-        <ButtonClickCounter />
-      </div>
-    <div>
-        <h2>Exercise 2: Input Field Tracker</h2>
-        <InputFieldTracker />
-      </div>
-      <div> 
-        <h2>Exercise 3: Toggle Switch</h2>
-        <ToggleSwitch />
-      </div>
-      <div>
-        <h2>Exercise 4: Hover Highlight</h2>
-        <HoverHighlight />
-      </div> 
-      <div> 
-        <h2>Exercise 5: Handling Form Submission</h2>
-        <HandlingFormSubmission />
-      </div>
-      <div> 
-        <h2>Exercise 6: Key Press Display</h2>
-        <KeyPressDisplay />
-      </div>
-      <div>
-        <h2>Exercise 7: Double Click Message</h2>
-        <DoubleClickMessage />
-      </div>
-      <div>
-        <h2>Excersice 8: Dropdown Selection Fruit</h2>
-        <DropdownSelection/>
-      </div>
-      <div>
-        <h2>Excersice 9: Checkbox Status</h2>
-        <CheckboxStatus/>
-      </div>
-      <div>
-        <h2>Excercise 10: Item Filter</h2>
-        <ItemFilter/>
-      </div>
-    </section> */}
+    <BrowserRouter>
+      <div className="flex min-h-screen">
+        <Sidebar />
+        <div className="flex-1 flex flex-col">
+          <div className="flex items-center justify-between px-6 py-4 border-b bg-white">
+            <div className="flex items-center w-full max-w-md">
+              <div className="relative w-full">
+                <span className="absolute left-3 inset-y-0 flex items-center text-gray-400">
+                  <FaSearch className="text-sm" />
+                </span>
 
-      <section>
-        <div
-          style={{
-            display: "flex-col",
-            justifyContent: "center",
-            marginTop: "50px",
-          }}
-        >
-          <h1>Simple Calculator</h1>
-          <Calculator />
-        </div>
-        <div
-          style={{
-            display: "flex-col",
-            justifyContent: "center",
-            marginTop: "50px",
-          }}
-        >
-          <h1>Registration Form</h1>
-          <RegistrationForm />
-        </div>
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  className="w-full pl-10 pr-4 py-2 border rounded-lg bg-gray-100 text-sm outline-none focus:ring-2 focus:ring-blue-400"
+                />
+              </div>
+            </div>
 
-        <CartProvider>
-          <h1>🛒 Big Market</h1>
-
-          {/* Bọc CartIcon + CartDropdown trong khối có position: relative */}
-          <div style={{ position: "relative" }}>
-            <CartIcon onClick={toggleCart} />
-            {isCartOpen && <CartDropdown isOpen={isCartOpen} />}
+            <div className="flex items-center gap-4 ml-4">
+              <FaBell className="text-gray-500 text-lg cursor-pointer" />
+              <div className="w-8 h-8 rounded-full bg-gray-300"></div>
+              <span className="text-sm font-medium text-gray-700">
+                Emma Kwan
+              </span>
+            </div>
           </div>
 
-          <h2 style={{ textAlign: 'left' }}>Thực phẩm khô</h2>
-          <ProductGrid />
-        </CartProvider>
-      </section>
-    </div>
+          <div className="p-6 flex-1 bg-gray-50">
+            <Routes>
+              <Route path="/" element={<PatientsPage />} />
+              <Route path="/overview" element={<OverviewPage />} />
+              <Route path="/map" element={<MapPage />} />
+              <Route path="/departments" element={<DepartmentsPage />} />
+              <Route path="/doctors" element={<DoctorsPage />} />
+              <Route path="/history" element={<HistoryPage />} />
+              <Route path="/settings" element={<SettingsPage />} />
+            </Routes>
+          </div>
+        </div>
+      </div>
+    </BrowserRouter>
   );
-  };
+}
+
 export default App;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 export default function DoubleClickMessage() {
   const [showMessage, setShowMessage] = useState<boolean>(false);
