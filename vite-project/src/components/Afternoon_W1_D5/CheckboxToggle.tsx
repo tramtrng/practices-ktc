@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 export default function CheckboxStatus() {
   const [isChecked, setIsChecked] = useState<boolean>(false);
