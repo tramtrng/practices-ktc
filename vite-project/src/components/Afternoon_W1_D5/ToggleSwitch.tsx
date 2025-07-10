@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 export default function ToggleSwitch() {
   const [isOn, setIsOn] = useState<boolean>(false);

@@ -59,7 +59,7 @@
 
 // export default App;
 
-//Homework
+//App.tsx
 import Registration from "./components/Homework_W2_D8/RegistrationForm"
 
 function App() {

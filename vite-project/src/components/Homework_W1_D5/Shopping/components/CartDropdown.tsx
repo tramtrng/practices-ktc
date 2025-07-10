@@ -22,7 +22,7 @@ export const CartDropdown: React.FC<CartDropdownProps> = ({ isOpen }) => {
       </div>
 
       {cartItems.length === 0 ? (
-        <div className={styles.cartEmpty}>
+        <div className={styles.cartEmpty}> 
           <p>Giỏ hàng trống</p>
         </div>
       ) : (
