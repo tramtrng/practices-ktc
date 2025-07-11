@@ -9,13 +9,11 @@ import AccessDeniedPage from './pages/AccessDeniedPage';
 import AuthContext from './context';
 import type { User } from './types';
 
-// Component để xử lý điều hướng sau đăng nhập
 const AppContent = () => {
   const [user, setUser] = useState<User | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Load user from localStorage khi khởi động hoặc thay đổi
     const handleStorageChange = () => {
       const storedUser = localStorage.getItem('user');
       if (storedUser) {
@@ -25,14 +23,12 @@ const AppContent = () => {
       }
     };
 
-    // Gọi ngay khi khởi động
     handleStorageChange();
-    // Lắng nghe sự thay đổi trong localStorage
     window.addEventListener('storage', handleStorageChange);
     return () => window.removeEventListener('storage', handleStorageChange);
   }, []);
 
-  const handleLogout = async () => {
+  const handleLogout = () => {
     setUser(null);
     localStorage.removeItem('user');
     localStorage.removeItem('access_token');
@@ -91,8 +87,8 @@ const AppContent = () => {
         {user && <p className="text-gray-600 mb-6">Hi, {user?.email}</p>}
         <div className="w-screen -ml-5 bg-white rounded-lg shadow-md">
           <Routes>
-            <Route index element={<LoginPage />} />
-            <Route path="/login" element={<LoginPage />} />
+            <Route path="/" element={!user ? <LoginPage /> : <Navigate to="/tasks" />} />
+            <Route path="/login" element={!user ? <LoginPage /> : <Navigate to="/tasks" />} />
             {user && <Route path="/tasks" element={<OurTasksPage />} />}
             {user && <Route path="/assignee-me" element={<MyTasksPage />} />}
             {user && <Route path="/create-task" element={<CreateTaskPage />} />}

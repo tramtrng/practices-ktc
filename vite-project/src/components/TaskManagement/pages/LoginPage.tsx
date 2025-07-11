@@ -44,10 +44,11 @@ export default function LoginPage() {
         email: result.loggedInUser.email,
         access_token: result.access_token,
       };
-      setUser(authenticatedUser);
+      setUser(authenticatedUser); // Cập nhật context
       localStorage.setItem('user', JSON.stringify(authenticatedUser));
       localStorage.setItem('access_token', result.access_token);
-      navigate('/tasks'); // Sử dụng navigate thay vì window.location.href
+      // Đảm bảo navigate sau khi setUser hoàn tất
+      setTimeout(() => navigate('/tasks'), 0); // Delay nhỏ để đảm bảo state cập nhật
     } catch (error) {
       console.error('Login error:', error);
       alert('Login failed. Please check your credentials.');
