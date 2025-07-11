@@ -50,7 +50,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300">
+    <div className="flex min-h-screen items-center justify-center">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-full max-w-sm bg-white p-10 rounded-2xl shadow-2xl flex flex-col gap-7 items-stretch h-[600px]"

@@ -56,7 +56,7 @@ export default function OurTasksPage() {
   });
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300 py-8">
+    <div className="flex min-h-screen items-center justify-center py-8">
       <div className="w-full max-w-6xl bg-white rounded-md shadow-2xl p-8">
         <h2 className="text-2xl font-bold text-blue-600 mb-6 text-center">All Tasks</h2>
         
@@ -67,7 +67,7 @@ export default function OurTasksPage() {
           </div>
         </div>
 
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto ">
           <table className="min-w-full divide-y divide-blue-200 rounded-md overflow-hidden">
             <thead>
               <tr className="bg-blue-600 text-white">

@@ -1,12 +1,17 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import AuthContext from '../context';
 import { getTasksByAssignee } from '../services';
 import type { Task } from '../types';
+import SearchTasks from '../components/SearchTasks';
 
 export default function MyTasksPage() {
   const { user } = useContext(AuthContext);
 
   const [tasks, setTasks] = React.useState<Task[]>([]);
+  const [filters, setFilters] = useState<any>({
+    status: '',
+    priority: '',
+  });
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -22,12 +27,34 @@ export default function MyTasksPage() {
     fetchTasks();
   }, [user]);
 
+  // Hàm nhận filter từ SearchTasks
+  const handleOnSearch = (newFilters: { status?: string; priority?: string }) => {
+    setFilters(f => ({ ...f, ...newFilters }));
+  };
+
+  const filteredTasks = tasks.filter((task: Task) => {
+    let matches = true;
+    if (filters.status && task.status !== filters.status) {
+      matches = false;
+    }
+    if (filters.priority && task.priority !== filters.priority) {
+      matches = false;
+    }
+    return matches;
+  });
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300 py-8">
+    <div className="flex min-h-screen items-center justify-center py-8">
       <div className="w-full max-w-4xl bg-white rounded-md shadow-2xl p-8">
-        <h2 className="text-2xl font-bold text-blue-600 mb-6 text-center">Your Tasks List </h2>
+        <h2 className="text-2xl font-bold text-blue-600 mb-6 text-center">Your Tasks List</h2>
+        {/* Filter giống OurTasksPage */}
+        <div className="mb-6">
+          <div className="flex items-center gap-4 border border-blue-300 rounded-lg px-4 py-3 bg-blue-50">
+            <SearchTasks onSearch={handleOnSearch} />
+          </div>
+        </div>
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-blue-200 rounded-md overflow-hidden">
+          <table className="min-w-full divide-y divide-blue-200">
             <thead>
               <tr className="bg-blue-600 text-white">
                 <th className="px-4 py-3 text-left font-semibold">ID</th>
@@ -38,7 +65,7 @@ export default function MyTasksPage() {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-blue-100">
-              {tasks?.map((task: Task) => (
+              {filteredTasks?.map((task: Task) => (
                 <tr key={task.id} className="hover:bg-blue-50 transition-colors">
                   <td className="px-4 py-2">{task.id}</td>
                   <td className="px-4 py-2">{task.title}</td>
@@ -59,7 +86,7 @@ export default function MyTasksPage() {
                   <td className="px-4 py-2">{task.assignee_id}</td>
                 </tr>
               ))}
-              {(!tasks || tasks.length === 0) && (
+              {(!filteredTasks || filteredTasks.length === 0) && (
                 <tr>
                   <td colSpan={5} className="text-center py-6 text-gray-400">
                     Không có công việc nào.

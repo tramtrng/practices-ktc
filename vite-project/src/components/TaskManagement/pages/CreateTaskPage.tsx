@@ -83,7 +83,7 @@ export default function CreateTaskPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300">
+    <div className="flex min-h-screen items-center justify-center">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-full max-w-lg bg-white p-10 rounded-md shadow-2xl flex flex-col gap-5"
