@@ -3,6 +3,7 @@ import AuthContext from '../context';
 import { getTasks } from '../services';
 import type { Task } from '../types';
 import { useNavigate } from 'react-router';
+import SearchTasks from '../components/SearchTasks';
 
 export default function OurTasksPage() {
   const { user } = useContext(AuthContext);
@@ -10,7 +11,6 @@ export default function OurTasksPage() {
   const navigate = useNavigate();
 
   const [tasks, setTasks] = React.useState<Task[]>([]);
-
   const [filters, setFilters] = useState<any>({
     status: '',
     priority: '',
@@ -36,8 +36,9 @@ export default function OurTasksPage() {
     navigate(`/update-task/${taskId}`);
   };
 
-  const handleOnSearch = (filters: { status?: string; priority?: string }) => {
-    setFilters(filters);
+  // Hàm nhận filter từ SearchTasks
+  const handleOnSearch = (newFilters: { status?: string; priority?: string }) => {
+    setFilters(f => ({ ...f, ...newFilters }));
   };
 
   const filteredTasks = tasks.filter((task: Task) => {
@@ -58,7 +59,14 @@ export default function OurTasksPage() {
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300 py-8">
       <div className="w-full max-w-6xl bg-white rounded-md shadow-2xl p-8">
         <h2 className="text-2xl font-bold text-blue-600 mb-6 text-center">All Tasks</h2>
-      
+        
+        {/* Hiển thị filter phía trên bảng */}
+        <div className="mb-6">
+          <div className="flex items-center gap-4 border border-blue-300 rounded-lg px-4 py-3 bg-blue-50">
+            <SearchTasks onSearch={handleOnSearch} />
+          </div>
+        </div>
+
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-blue-200 rounded-md overflow-hidden">
             <thead>
@@ -131,5 +139,5 @@ export default function OurTasksPage() {
         </div>
       </div>
     </div>
-  );
+    );
 }
