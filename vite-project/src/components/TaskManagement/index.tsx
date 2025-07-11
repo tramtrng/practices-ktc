@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Routes, Route, NavLink } from 'react-router';
+import { BrowserRouter, Routes, Route, NavLink, useNavigate } from 'react-router';
 import LoginPage from './pages/LoginPage';
 import OurTasksPage from './pages/OurTasksPage';
 import MyTasksPage from './pages/MyTasksPage';
@@ -9,104 +9,106 @@ import AccessDeniedPage from './pages/AccessDeniedPage';
 import AuthContext from './context';
 import type { User } from './types';
 
-export default function TasksManagementGuidelines() {
+// Component để xử lý điều hướng sau đăng nhập
+const AppContent = () => {
   const [user, setUser] = useState<User | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Load user from localStorage if available
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
+    // Load user from localStorage khi khởi động hoặc thay đổi
+    const handleStorageChange = () => {
+      const storedUser = localStorage.getItem('user');
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+      } else {
+        setUser(null);
+      }
+    };
+
+    // Gọi ngay khi khởi động
+    handleStorageChange();
+    // Lắng nghe sự thay đổi trong localStorage
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
   }, []);
 
   const handleLogout = async () => {
-    // Clear user from state and localStorage
     setUser(null);
     localStorage.removeItem('user');
     localStorage.removeItem('access_token');
-    window.location.href = '/login';
+    navigate('/login');
   };
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>
-      <BrowserRouter>
-        <div className="px-4 py-6">
-          <div className="flex items-center justify-between mb-6">
-            {/* Phần bên trái - Tiêu đề */}
-            <h1 className="text-xl font-semibold text-gray-800">Tasks Management Guidelines</h1>
-            {/* Phần bên phải - Navigation các tác vụ */}
-            <nav className="flex items-center gap-4">
-  <NavLink
-    to="/tasks"
-    style={({ isActive }: { isActive: boolean }) => ({
-      fontWeight: isActive ? 'bold' : 'normal',
-    })}
-    className={({ isActive }: { isActive: boolean }) =>
-      `px-3 py-1 rounded transition font-medium ${
-        isActive
-          ? 'text-blue-700 underline'
-          : 'text-gray-700 hover:text-blue-700'
-      }`
-    }
-  >
-    Tasks
-  </NavLink>
-  <NavLink
-    to="/assignee-me"
-    style={({ isActive }: { isActive: boolean }) => ({
-      fontWeight: isActive ? 'bold' : 'normal',
-    })}
-    className={({ isActive }: { isActive: boolean }) =>
-      `px-3 py-1 rounded transition font-medium ${
-        isActive
-          ? 'text-blue-700 underline'
-          : 'text-gray-700 hover:text-blue-700'
-      }`
-    }
-  >
-    My Tasks
-  </NavLink>
-  <NavLink
-    to="/create-task"
-    style={({ isActive }: { isActive: boolean }) => ({
-      fontWeight: isActive ? 'bold' : 'normal',
-    })}
-    className={({ isActive }: { isActive: boolean }) =>
-      `px-3 py-1 rounded transition font-medium ${
-        isActive
-          ? 'text-blue-700 underline'
-          : 'text-gray-700 hover:text-blue-700'
-      }`
-    }
-  >
-    Create Task
-  </NavLink>
-  {user && (
-    <button
-      onClick={handleLogout}
-      className="ml- px-3 py-1 text-gray-700 hover:text-blue-800 transition"
-    >
-      Logout
-    </button>
-  )}
-</nav>
-          </div>
-          {user && <p className="text-gray-600 mb-6">Hi, {user?.email}</p>}
-          <div className="w-screen -ml-5 bg-white rounded-lg shadow-md">
-            <Routes>
-              <Route index element={<LoginPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              {/* Private */}
-              {user && <Route path="/tasks" element={<OurTasksPage />} />}
-              {user && <Route path="/assignee-me" element={<MyTasksPage />} />}
-              {user && <Route path="/create-task" element={<CreateTaskPage />} />}
-              {user && <Route path="/update-task/:id" element={<UpdateTaskPage />} />}
-              <Route path="/*" element={<AccessDeniedPage />} />
-            </Routes>
-          </div>
+      <div className="px-4 py-6">
+        <div className="flex items-center justify-between mb-6">
+          <h1 className="text-xl font-semibold text-gray-800">Tasks Management Guidelines</h1>
+          <nav className="flex items-center gap-4">
+            <NavLink
+              to="/tasks"
+              style={({ isActive }) => ({ fontWeight: isActive ? 'bold' : 'normal' })}
+              className={({ isActive }) =>
+                `px-3 py-1 rounded transition font-medium ${
+                  isActive ? 'text-blue-700 underline' : 'text-gray-700 hover:text-blue-700'
+                }`
+              }
+            >
+              Tasks
+            </NavLink>
+            <NavLink
+              to="/assignee-me"
+              style={({ isActive }) => ({ fontWeight: isActive ? 'bold' : 'normal' })}
+              className={({ isActive }) =>
+                `px-3 py-1 rounded transition font-medium ${
+                  isActive ? 'text-blue-700 underline' : 'text-gray-700 hover:text-blue-700'
+                }`
+              }
+            >
+              My Tasks
+            </NavLink>
+            <NavLink
+              to="/create-task"
+              style={({ isActive }) => ({ fontWeight: isActive ? 'bold' : 'normal' })}
+              className={({ isActive }) =>
+                `px-3 py-1 rounded transition font-medium ${
+                  isActive ? 'text-blue-700 underline' : 'text-gray-700 hover:text-blue-700'
+                }`
+              }
+            >
+              Create Task
+            </NavLink>
+            {user && (
+              <button
+                onClick={handleLogout}
+                className="ml- px-3 py-1 text-gray-700 hover:text-blue-800 transition"
+              >
+                Logout
+              </button>
+            )}
+          </nav>
         </div>
-      </BrowserRouter>
+        {user && <p className="text-gray-600 mb-6">Hi, {user?.email}</p>}
+        <div className="w-screen -ml-5 bg-white rounded-lg shadow-md">
+          <Routes>
+            <Route index element={<LoginPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            {user && <Route path="/tasks" element={<OurTasksPage />} />}
+            {user && <Route path="/assignee-me" element={<MyTasksPage />} />}
+            {user && <Route path="/create-task" element={<CreateTaskPage />} />}
+            {user && <Route path="/update-task/:id" element={<UpdateTaskPage />} />}
+            <Route path="/*" element={<AccessDeniedPage />} />
+          </Routes>
+        </div>
+      </div>
     </AuthContext.Provider>
+  );
+};
+
+export default function TasksManagementGuidelines() {
+  return (
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
   );
 }

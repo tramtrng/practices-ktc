@@ -1,9 +1,10 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import AuthContext from '../context';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { login } from '../services';
+import { useNavigate } from 'react-router';
 
 interface IFormInput {
   username: string;
@@ -19,6 +20,7 @@ const schema = yup
 
 export default function LoginPage() {
   const { setUser } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -34,19 +36,22 @@ export default function LoginPage() {
   });
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    const result = await login(data.username, data.password);
-
-    const authenticatedUser = {
-      id: result.loggedInUser.id,
-      email: result.loggedInUser.email,
-      access_token: result.access_token,
-    };
-
-    setUser(authenticatedUser);
-    localStorage.setItem('user', JSON.stringify(authenticatedUser));
-    localStorage.setItem('access_token', result.access_token);
-
-    window.location.href = '/tasks';
+    try {
+      const result = await login(data.username, data.password);
+      console.log('Login result:', result); // Debug
+      const authenticatedUser = {
+        id: result.loggedInUser.id,
+        email: result.loggedInUser.email,
+        access_token: result.access_token,
+      };
+      setUser(authenticatedUser);
+      localStorage.setItem('user', JSON.stringify(authenticatedUser));
+      localStorage.setItem('access_token', result.access_token);
+      navigate('/tasks'); // Sử dụng navigate thay vì window.location.href
+    } catch (error) {
+      console.error('Login error:', error);
+      alert('Login failed. Please check your credentials.');
+    }
   };
 
   return (
@@ -70,9 +75,7 @@ export default function LoginPage() {
               errors.username ? 'border-red-500' : 'border-gray-300'
             }`}
           />
-          {errors.username && (
-            <p className="text-red-500 text-sm mt-1">{errors.username.message}</p>
-          )}
+          {errors.username && <p className="text-red-500 text-sm mt-1">{errors.username.message}</p>}
         </div>
         <div className="mb-6">
           <label htmlFor="password" className="block text-gray-700 font-semibold mb-1">
@@ -88,9 +91,7 @@ export default function LoginPage() {
               errors.password ? 'border-red-500' : 'border-gray-300'
             }`}
           />
-          {errors.password && (
-            <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
-          )}
+          {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
         </div>
         <button
           type="submit"
