@@ -8,11 +8,11 @@ export default function UserList() {
 
   return (
     <div className="max-w-md mx-auto mt-8 bg-white p-6 rounded-xl shadow">
-      <h3 className="text-lg text-center font-bold text-blue-600 mb-6 flex items-center justify-center gap-2">
+      <h3 className="text-xl text-center font-bold text-blue-600 mb-6 flex items-center justify-center gap-2">
         User List
       </h3>
       {users.length === 0 ? (
-        <p className="text-gray-400 text-center">No users yet.</p>
+        <p className="text-gray-400 text-center">User not found</p>
       ) : (
         <ul className="divide-y divide-gray-200">
           {users.map((user: User) => (

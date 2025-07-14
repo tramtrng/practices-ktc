@@ -20,10 +20,7 @@ interface UserProviderProps {
 }
 
 export function UserProvider({ children }: UserProviderProps) {
-  const [users, setUsers] = useState<User[]>([
-  { id: 1, name: "Tram", email: "trtram2003@gmail.com", age: 22 },
-  { id: 2, name: "Tram", email: "tramtn.21ad@vku.udn.vn", age: 22 },
-]);
+  const [users, setUsers] = useState<User[]>([]);
 
   const addUser = (user: Omit<User, "id">) => {
     const newUser: User = {
