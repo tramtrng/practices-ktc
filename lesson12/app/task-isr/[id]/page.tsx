@@ -1,3 +1,5 @@
+export const revalidate = 60;
+
 interface Task {
   userId: number;
   id: number;
@@ -5,14 +7,9 @@ interface Task {
   completed: boolean;
 }
 
-interface PageProps {
-  params: { id: string };
-}
-
-export const revalidate = 60;
-
-export default async function TaskISR({ params }: PageProps) {
-  const res = await fetch(`https://jsonplaceholder.typicode.com/todos/${params.id}`);
+export default async function TaskISR({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const res = await fetch(`https://jsonplaceholder.typicode.com/todos/${id}`);
   if (!res.ok) {
     return (
       <div>
