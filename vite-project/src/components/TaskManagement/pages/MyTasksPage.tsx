@@ -45,7 +45,7 @@ export default function MyTasksPage() {
 
   return (
     <div className="flex min-h-screen items-center justify-center py-8">
-      <div className="w-full max-w-4xl bg-white rounded-md shadow-2xl p-8">
+      <div className="w-full max-w-6xl bg-white rounded-md shadow-2xl p-8">
         <h2 className="text-2xl font-bold text-blue-600 mb-6 text-center">Your Tasks List</h2>
         {/* Filter giống OurTasksPage */}
         <div className="mb-6">

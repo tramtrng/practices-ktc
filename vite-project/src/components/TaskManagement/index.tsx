@@ -8,7 +8,6 @@ import UpdateTaskPage from "./pages/UpdateTaskPage";
 import AccessDeniedPage from "./pages/AccessDeniedPage";
 import AuthContext from "./context";
 import type { User } from "./types";
-import { FaFacebookF } from "react-icons/fa";
 
 export default function TasksManagementGuidelines() {
   const [user, setUser] = useState<User | null>(null);
