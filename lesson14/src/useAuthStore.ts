@@ -9,12 +9,10 @@ export interface LoggedInUser {
   id: string | number;
   email: string;
   isActive: boolean;
-  roles: [
-    {
-      id: string | number;
-      name: string;
-    }
-  ];
+  roles: Array<{
+    id: string | number;
+    name: string;
+  }>;
 }
 
 export interface AuthState {

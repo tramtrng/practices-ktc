@@ -12,14 +12,14 @@ export const RolesGuard: React.FC<{
   children: React.ReactNode;
 }> = ({ roles, fallback = null, children }) => {
   
-  const { user } = useAuthStore();
+  const { loggedInUser } = useAuthStore();
 
-  if (!user) {
+  if (!loggedInUser) {
     return <>{fallback}</>;
   }
 
   // Root users bypass role checks
-  if (isAllowAccessForRoles(user.roles, ['root', 'admin'])) {
+  if (isAllowAccessForRoles(loggedInUser.roles, ['root', 'admin'])) {
     return <>{children}</>;
   }
 

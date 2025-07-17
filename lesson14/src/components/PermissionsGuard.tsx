@@ -1,6 +1,6 @@
 import { hasPermissions, isAllowAccessForRoles } from "../auth.util";
 import { useAuthStore } from "../auth.store";
-import { PermissionCheckMode } from "../auth.type";
+import type { PermissionCheckMode } from "../auth.type";
 
 /**
  * UI Components for permission-based rendering
@@ -14,14 +14,14 @@ const PermissionsGuard: React.FC<{
   fallback?: React.ReactNode;
   children: React.ReactNode;
 }> = ({ permissions, mode = "any", fallback = null, children }) => {
-  const { user } = useAuthStore();
+  const { loggedInUser } = useAuthStore();
 
-  if (!user) {
+  if (!loggedInUser) {
     return <>{fallback}</>;
   }
 
   // Root and admin users bypass role checks
-  if (isAllowAccessForRoles(user.roles, ["root", "admin"])) {
+  if (isAllowAccessForRoles(loggedInUser.roles, ["root", "admin"])) {
     return <>{children}</>;
   }
 

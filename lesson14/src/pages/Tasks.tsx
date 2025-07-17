@@ -40,7 +40,11 @@ export default function Tasks() {
 
     setLoading(true);
     try {
-      await apiClient.delete(`/workspaces/tasks/${taskId}`);
+      if (typeof apiClient.delete === 'function') {
+        await apiClient.delete(`/workspaces/tasks/${taskId}`);
+      } else {
+        throw new Error('apiClient.delete is not defined');
+      }
       await fetchTasks();
       alert('Task deleted successfully');
     } catch (error) {
@@ -90,8 +94,6 @@ export default function Tasks() {
           </button>
         </div>
       </div>
-
-      {/* XÓA PHẦN HIỂN THỊ TOKEN - KHÔNG BAO GIỜ HIỂN THỊ TOKEN TRÊN UI */}
       
       <div className="bg-white rounded-lg shadow-md overflow-hidden">
         <div className="overflow-x-auto">

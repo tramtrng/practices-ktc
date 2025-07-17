@@ -11,14 +11,14 @@ import { useAuthStore } from "../auth.store";
 const withRoles = (requiredRoles: string[]) => {
     return function <P extends object>(Component: React.ComponentType<P>) {
       return function WithRoleComponent(props: P) {
-        const {user } = useAuthStore();
-        
-        if (!user) {
+        const { loggedInUser } = useAuthStore();
+
+        if (!loggedInUser) {
           return <Navigate to="/login" replace />;
         }
         
         // Root users bypass role checks
-        if (isAllowAccessForRoles(user.roles, ['root', 'admin'])) {
+        if (isAllowAccessForRoles(loggedInUser.roles, ['root', 'admin'])) {
           return <Component {...props} />;
         }
         

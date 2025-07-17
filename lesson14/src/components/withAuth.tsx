@@ -10,9 +10,9 @@ import { useAuthStore } from '../auth.store';
  */
 const withAuth = <P extends object>(Component: React.ComponentType<P>) => {
   return function WithAuthComponent(props: P) {
-    const { user } = useAuthStore();
-    
-    if (!user) {
+    const { loggedInUser } = useAuthStore();
+
+    if (!loggedInUser) {
       return <Navigate to="/login" replace />;
     }
     

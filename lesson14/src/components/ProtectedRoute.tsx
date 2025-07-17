@@ -1,6 +1,7 @@
 import React from "react";
 import { Navigate } from "react-router";
 import { useAuthStore } from "../auth.store";
+import { isAuthenticated } from "../auth.store";
 
 /**
  * Protect multi children Components
@@ -9,7 +10,13 @@ interface ProtectedRouteProps {
   children: React.ReactNode;
 }
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
-  const { isAuthenticated, user} = useAuthStore();
+  const { loggedInUser } = useAuthStore();
+
+if (!isAuthenticated() || !loggedInUser) {
+  return <Navigate to="/login" replace />;
+}
+
+return <>{children}</>;
   // const location = useLocation();
   // useEffect(()=>{
   //   const fetchProfile = async()=>{
@@ -29,12 +36,6 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   //     fetchProfile();
   //   }
   // }, [location, refreshUser])
+}
       
-  if (!isAuthenticated && !user) {
-    return <Navigate to="/login" replace />;
-  }
-
-  return <>{children}</>;
-};
-
 export default ProtectedRoute;
